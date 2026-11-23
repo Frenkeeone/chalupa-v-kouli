@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chalupa v kouli – generátor</title>
+<link rel="stylesheet" href="css/app.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2246%22 r=%2240%22 fill=%22%23f4efe6%22 stroke=%22%23b5532f%22 stroke-width=%226%22/%3E%3Cpath d=%22M30 62V46l20-16 20 16v16z%22 fill=%22%23b5532f%22/%3E%3C/svg%3E">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three/three.module.js" } }
+</script>
+</head>
+<body>
+<aside id="panel">
+  <header>
+    <h1>Chalupa v kouli</h1>
+    <p class="sub">Dům podle fotky → koule se svíčkou → 3MF</p>
+  </header>
+  <section class="block">
+    <label class="lbl">Předloha
+      <select id="preset"></select>
+    </label>
+    <div class="row">
+      <button id="btnNew" title="Vrátit výchozí hodnoty">Nový</button>
+      <button id="btnSave" title="Uložit nastavení do .json">Uložit</button>
+      <label class="btn">Načíst<input id="fileLoad" type="file" accept=".json,application/json" hidden></label>
+    </div>
+  </section>
+  <section class="block">
+    <label class="btn wide">📷 Nahrát fotku domu<input id="filePhoto" type="file" accept="image/*" hidden></label>
+    <p class="hint">Fotka slouží jen jako předloha vedle náhledu a zůstává ve tvém prohlížeči.</p>
+  </section>
+  <form id="form"></form>
+</aside>
+
+<main id="main">
+  <div id="viewer"></div>
+  <div id="photoBox" class="hidden">
+    <img id="photo" alt="Fotka předlohy">
+    <div class="photoBar">
+      <button id="photoSize" title="Zvětšit / zmenšit">⤢</button>
+      <button id="photoClose" title="Skrýt">✕</button>
+    </div>
+  </div>
+  <div id="toolbar">
+    <button data-view="front">Zepředu</button>
+    <button data-view="iso">Šikmo</button>
+    <button data-view="top">Shora</button>
+    <label class="chk"><input type="checkbox" id="cut"> Řez koulí</label>
+    <label class="chk"><input type="checkbox" id="xray"> Průhledná koule</label>
+  </div>
+  <div id="status">Načítám…</div>
+  <div id="info"></div>
+  <div id="exportBar">
+    <button id="exp3mf" class="primary">Stáhnout 3MF</button>
+    <button id="expStl">STL</button>
+  </div>
+</main>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
