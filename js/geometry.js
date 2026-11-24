@@ -8,7 +8,7 @@
 
 export const DEFAULTS = {
   // --- koule ---
-  kouleD: 120,          // vnější průměr koule [mm]
+  kouleD: 90,           // vnější průměr koule [mm] (celková výška ≈ 1,12 × průměr)
   kouleStena: 2.4,      // tloušťka stěny koule [mm]
   svickaD: 42,          // průměr otvoru na svíčku [mm]
   svickaH: 28,          // výška válcové části otvoru na svíčku [mm]

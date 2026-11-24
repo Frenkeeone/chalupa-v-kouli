@@ -36,7 +36,7 @@ Tlačítkem **Uložit** si nastavení uložíš do `.json` (např. pro zákazní
 
 | | |
 |---|---|
-| Koule | Ø 120 mm (nastavitelné), celkem cca 98 × 98 × 134 mm, šikmý řez vpředu (odstup a sklon nastavitelné) |
+| Koule | Ø 90 mm (nastavitelné), celkem cca 74 × 74 × 101 mm (výška ≈ 1,12 × průměr), šikmý řez vpředu (odstup a sklon nastavitelné) |
 | Otvor na svíčku | Ø 42 mm zespodu, nálevka vede světlo přímo do domku |
 | Domek | dutý, stěny 1,2 mm, okna ztenčená na 0,6 mm → **svíčka je rozsvítí zevnitř** |
 | Výška vrstvy | 0,2 mm |
