@@ -22,7 +22,10 @@ Běží celé v prohlížeči (bez serveru, bez nahrávání dat) – fotka i mo
 2. Vyber nejbližší **předlohu** (podstávkový dům, roubenka, chata s mansardou, přístřešek…).
 3. Uprav **rozměry v metrech** (délka okapové strany, hloubka, výška stěn po okap). Stačí odhad –
    např. podle počtu oken (okno ≈ 1,1 m, rozestup ≈ 1,5–2 m) nebo výšky dveří (≈ 2 m).
-4. Nastav střechu, okna, dveře, vikýře, komín, přístřešky. Náhled se přepočítá sám.
+4. Nastav střechu a **skladbu každé stěny** zleva doprava (při pohledu zvenku):
+   `O` okno · `D` dveře · `B` podstávkový oblouk s oknem · `A` oblouk bez okna · `-` mezera,
+   číslo opakuje – např. `2O D 3O` nebo `B B D O D B B`. Stačí klikat na tlačítka pod polem.
+   Pak vikýře, komín, přístřešky. Náhled se přepočítá sám.
 5. **Natočení domu** nastav tak, aby z okna koule byla vidět strana jako na fotce
    (0° = okapová strana do okna, −90° = pravý štít do okna, 90° = levý štít).
 6. **Stáhnout 3MF** → otevřít v Bambu Studiu.
@@ -33,7 +36,7 @@ Tlačítkem **Uložit** si nastavení uložíš do `.json` (např. pro zákazní
 
 | | |
 |---|---|
-| Koule | Ø 120 mm (nastavitelné), celkem cca 98 × 98 × 134 mm |
+| Koule | Ø 120 mm (nastavitelné), celkem cca 98 × 98 × 134 mm, šikmý řez vpředu (odstup a sklon nastavitelné) |
 | Otvor na svíčku | Ø 42 mm zespodu, nálevka vede světlo přímo do domku |
 | Domek | dutý, stěny 1,2 mm, okna ztenčená na 0,6 mm → **svíčka je rozsvítí zevnitř** |
 | Výška vrstvy | 0,2 mm |
@@ -47,10 +50,10 @@ nechá 0,6 mm zahloubení pro jeho usazení. Domek se do koule vkládá oknem (p
 ## Co generátor umí
 
 - střechy: sedlová, polovalbová, valbová, mansardová, pultová; přesahy u okapu i štítu
-- krytina: řady tašek/břidlice, svislé drážky (plech/prkna), hladká
+- krytina: kosočtverce (eternit/břidlice), řady tašek, svislé drážky (plech/prkna), hladká
 - stěny: hladké, roubení (vodorovné drážky), svislá prkna, roubení jen v úseku s **podstávkovými oblouky**
 - obklad štítu: svislá / vodorovná prkna, šupiny (břidlice, šindel)
-- okna s křížem a rámem, ruční pozice oken, dveře, okna ve štítu
+- skladba každé stěny (okna, dveře, podstávkové oblouky, mezery v libovolném pořadí), okna ve štítu
 - ležaté vikýře, střešní okna, komíny
 - 2 přístřešky / přístavky (otevřené se sloupky a zábradlím nebo uzavřené), stříška mezi patry (podlomenice)
 - automatické měřítko: dům se zvětší na maximum, které se vejde do koule a je celý vidět oknem

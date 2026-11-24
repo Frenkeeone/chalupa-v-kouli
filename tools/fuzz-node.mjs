@@ -13,7 +13,7 @@ for (let i = 0; i < +N; i++) {
     rezim: pick(['vcelku', 'zvlast']), natoceni: R(-180, 180), velikost: R(50, 100), celyVOkne: rnd() > 0.3,
     delka: R(4, 30), hloubka: R(3, 14), vyskaSten: R(2, 7), sokl: R(0, 1),
     strechaTyp: pick(['sedlova', 'polovalba', 'valba', 'mansarda', 'pultova']), sklon: R(10, 65),
-    krytina: pick(['tasky', 'plech', 'hladka']), presahOkap: R(0, 1.2), presahStit: R(0, 1),
+    krytina: pick(['tasky', 'plech', 'hladka', 'kosoctverce']), rezOdstup: R(25, 70), rezSklon: R(0, 35), presahOkap: R(0, 1.2), presahStit: R(0, 1),
     polovalbaPodil: R(0.1, 0.7), mansardaZlom: R(0.8, 3.5), mansardaSpodniSklon: R(55, 80),
     roubeni: pick(['zadne', 'vodorovne', 'svisle', 'usek']), obloukyPredni: pick([0, 0, 2, 3, 5]), obloukyUsek: R(0.2, 1),
     obloukyStrana: pick(['vlevo', 'vpravo']), obloukyStit: pick([0, 2, 3]), stitObklad: pick(['zadny', 'svisle', 'vodorovne', 'supiny']),
@@ -24,6 +24,8 @@ for (let i = 0; i < +N; i++) {
     stresniOkna: Math.floor(R(0, 4)), stresniOknaStrana: pick(['predni', 'zadni']), komin: pick([0, 1, 2]), kominPozice: R(0.1, 0.9),
     p1Strana: pick(['zadny', 'predni', 'zadni', 'levy', 'pravy']), p1Typ: pick(['otevreny', 'uzavreny']), p1Hloubka: R(1, 4), p1Sirka: R(0.2, 1.1), p1Pozice: rnd(), p1Napojeni: R(2, 3.5), p1Okraj: R(1.5, 2.8), p1Sloupky: Math.floor(R(2, 6)), p1Zabradli: rnd() > 0.5,
     p2Strana: pick(['zadny', 'zadny', 'levy', 'pravy']), p2Typ: pick(['otevreny', 'uzavreny']),
+    predniSkladba: pick(['', 'O D O', '2O D 3O', 'B B D O D B B', 'O D O B B B', 'A B - D', '5B']),
+    zadniSkladba: pick(['', 'O O', '3O', 'D', 'B B B']), levySkladba: pick(['', 'O', '3B', 'O D']), pravySkladba: pick(['', '2O', 'B A B']),
     mezistriska: pick(['zadna', 'predni', 'stity', 'predni+stity', 'vse']), mezistriskaVyska: R(2, 4),
   };
   if (i % 10 === 9) { M = await Module(); M.setup(); } // WASM paměť roste – nová instance

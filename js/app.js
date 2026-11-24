@@ -25,16 +25,12 @@ const SCHEMA = [
     { k: 'polovalbaPodil', l: 'Podíl polovalby', t: 'num', min: 0.1, max: 0.8, step: 0.05, show: P => P.strechaTyp === 'polovalba' },
     { k: 'mansardaSpodniSklon', l: 'Spodní sklon mansardy [°]', t: 'num', min: 50, max: 85, step: 1, show: P => P.strechaTyp === 'mansarda' },
     { k: 'mansardaZlom', l: 'Výška zlomu nad okapem [m]', t: 'num', min: 0.5, max: 5, step: 0.1, show: P => P.strechaTyp === 'mansarda' },
-    { k: 'krytina', l: 'Krytina', t: 'sel', opts: [['tasky', 'tašky / břidlice (řady)'], ['plech', 'plech / prkna (svislé drážky)'], ['hladka', 'hladká']], full: true },
+    { k: 'krytina', l: 'Krytina', t: 'sel', opts: [['kosoctverce', 'kosočtverce (eternit / břidlice)'], ['tasky', 'tašky (vodorovné řady)'], ['plech', 'plech / prkna (svislé drážky)'], ['hladka', 'hladká']], full: true },
     { k: 'presahOkap', l: 'Přesah u okapu [m]', t: 'num', min: 0, max: 2, step: 0.05 },
     { k: 'presahStit', l: 'Přesah u štítu [m]', t: 'num', min: 0, max: 2, step: 0.05, show: isGableRoof },
   ] },
   { t: 'Stěny a štíty', f: [
-    { k: 'roubeni', l: 'Povrch stěn', t: 'sel', opts: [['zadne', 'hladké (zděné)'], ['vodorovne', 'roubení – vodorovné drážky'], ['svisle', 'svislá prkna'], ['usek', 'roubení jen v úseku s oblouky']], full: true },
-    { k: 'obloukyPredni', l: 'Podstávkové oblouky vpředu', t: 'num', min: 0, max: 8, step: 1 },
-    { k: 'obloukyUsek', l: 'Délka úseku s oblouky (0–1)', t: 'num', min: 0.15, max: 1, step: 0.05, show: P => P.obloukyPredni > 0 },
-    { k: 'obloukyStrana', l: 'Úsek s oblouky', t: 'sel', opts: [['vlevo', 'vlevo'], ['vpravo', 'vpravo']], show: P => P.obloukyPredni > 0 || P.obloukyStit > 0 },
-    { k: 'obloukyStit', l: 'Oblouky na štítové stěně', t: 'num', min: 0, max: 6, step: 1 },
+    { k: 'roubeni', l: 'Povrch stěn', t: 'sel', opts: [['zadne', 'hladké (zděné)'], ['vodorovne', 'roubení – vodorovné drážky'], ['svisle', 'svislá prkna'], ['usek', 'roubení jen u podstávkových oblouků']], full: true },
     { k: 'stitObklad', l: 'Obklad štítu', t: 'sel', opts: [['zadny', 'žádný'], ['svisle', 'svislá prkna'], ['vodorovne', 'vodorovná prkna'], ['supiny', 'šupiny (břidlice/šindel)']], show: isGableRoof },
     { k: 'mezistriska', l: 'Stříška mezi patry', t: 'sel', opts: [['zadna', 'žádná'], ['predni', 'vpředu'], ['stity', 'na štítech'], ['predni+stity', 'vpředu + štíty'], ['vse', 'dokola']] },
     { k: 'mezistriskaVyska', l: 'Výška stříšky [m]', t: 'num', min: 1, max: 8, step: 0.1, show: P => P.mezistriska !== 'zadna' },
@@ -46,21 +42,16 @@ const SCHEMA = [
     { k: 'parapet', l: 'Parapet [m]', t: 'num', min: 0.2, max: 2, step: 0.05 },
     { k: 'oknaTyp', l: 'Okna', t: 'sel', opts: [['blana', 'tenká blána – prosvítí'], ['otvor', 'průchozí otvor']] },
     { k: 'ramyOken', l: 'Rámy kolem oken a dveří', t: 'chk', full: true },
-    { k: 'predniOkna', l: 'Okna vpředu (mimo oblouky)', t: 'num', min: 0, max: 12, step: 1 },
-    { k: 'predniPozice', l: 'Ručně: středy oken zleva [m]', t: 'txt', ph: 'např. 1.5; 4; 7.2' },
-    { k: 'zadniOkna', l: 'Okna vzadu', t: 'num', min: 0, max: 12, step: 1 },
-    { k: 'zadniPozice', l: 'Ručně vzadu [m]', t: 'txt', ph: '' },
-    { k: 'levyOkna', l: 'Okna – levý štít (přízemí)', t: 'num', min: 0, max: 6, step: 1 },
-    { k: 'levyPozice', l: 'Ručně vlevo [m]', t: 'txt', ph: '' },
-    { k: 'pravyOkna', l: 'Okna – pravý štít (přízemí)', t: 'num', min: 0, max: 6, step: 1 },
-    { k: 'pravyPozice', l: 'Ručně vpravo [m]', t: 'txt', ph: '' },
+    { t: 'note', l: 'Skladba stěny zleva doprava při pohledu zvenku: <b>O</b> okno · <b>D</b> dveře · <b>B</b> podstávkový oblouk s oknem · <b>A</b> oblouk bez okna · <b>–</b> mezera. Číslo opakuje: <b>2O D 3O</b>.' },
+    { k: 'predniSkladba', l: 'Přední stěna (okapová)', t: 'seq' },
+    { k: 'zadniSkladba', l: 'Zadní stěna', t: 'seq' },
+    { k: 'levySkladba', l: 'Levý štít (přízemí)', t: 'seq' },
+    { k: 'pravySkladba', l: 'Pravý štít (přízemí)', t: 'seq' },
     { k: 'stitOkna', l: 'Okna ve štítu (podkroví)', t: 'num', min: 0, max: 4, step: 1, show: isGableRoof },
     { k: 'stitOknaVyska', l: 'Výška řady ve štítu (0–1)', t: 'num', min: 0, max: 0.8, step: 0.02, show: P => isGableRoof(P) && P.stitOkna > 0 },
     { k: 'stitOknaStrana', l: 'Štítová okna na', t: 'sel', opts: [['oba', 'obou štítech'], ['levy', 'levém štítu'], ['pravy', 'pravém štítu']], show: P => isGableRoof(P) && P.stitOkna > 0 },
-    { k: 'dvereStrana', l: 'Dveře', t: 'sel', opts: [...SIDES, ['zadne', 'bez dveří']] },
-    { k: 'dvereX', l: 'Poloha dveří (0–1)', t: 'num', min: 0, max: 1, step: 0.01, show: P => P.dvereStrana !== 'zadne' },
-    { k: 'dvereS', l: 'Šířka dveří [m]', t: 'num', min: 0.6, max: 4, step: 0.05, show: P => P.dvereStrana !== 'zadne' },
-    { k: 'dvereV', l: 'Výška dveří [m]', t: 'num', min: 1.5, max: 4, step: 0.05, show: P => P.dvereStrana !== 'zadne' },
+    { k: 'dvereS', l: 'Šířka dveří [m]', t: 'num', min: 0.6, max: 4, step: 0.05 },
+    { k: 'dvereV', l: 'Výška dveří [m]', t: 'num', min: 1.5, max: 4, step: 0.05 },
   ] },
   { t: 'Vikýře, střešní okna, komín', f: [
     { k: 'vikyre', l: 'Ležaté vikýře', t: 'num', min: 0, max: 2, step: 1 },
@@ -90,6 +81,8 @@ const SCHEMA = [
   { t: 'Koule, svíčka, stromky', f: [
     { k: 'kouleD', l: 'Průměr koule [mm]', t: 'num', min: 80, max: 180, step: 1 },
     { k: 'kouleStena', l: 'Stěna koule [mm]', t: 'num', min: 1.6, max: 4, step: 0.1 },
+    { k: 'rezOdstup', l: 'Řez – odstup od středu [% poloměru] (menší = větší otvor)', t: 'range', min: 20, max: 75, step: 1, full: true },
+    { k: 'rezSklon', l: 'Řez – sklon dozadu [°]', t: 'range', min: 0, max: 35, step: 1, full: true },
     { k: 'svickaD', l: 'Otvor na svíčku Ø [mm]', t: 'num', min: 20, max: 60, step: 0.1 },
     { k: 'svickaH', l: 'Výška válcové části [mm]', t: 'num', min: 8, max: 60, step: 0.5 },
     { k: 'dutyPodstavec', l: 'Dutý podstavec (úspora filamentu)', t: 'chk', full: true },
@@ -112,6 +105,7 @@ function buildForm() {
     d.innerHTML = `<summary>${g.t}</summary>`;
     const box = document.createElement('div'); box.className = 'fields';
     for (const f of g.f) {
+      if (f.t === 'note') { const nEl = document.createElement('p'); nEl.className = 'hint full'; nEl.innerHTML = f.l; box.appendChild(nEl); continue; }
       const w = document.createElement('label');
       w.className = 'f' + (f.full ? ' full' : '') + (f.t === 'chk' ? ' cb' : '');
       let el;
@@ -122,6 +116,24 @@ function buildForm() {
       } else if (f.t === 'chk') {
         el = document.createElement('input'); el.type = 'checkbox';
         w.append(el, f.l);
+      } else if (f.t === 'seq') {
+        w.classList.add('full');
+        el = document.createElement('input'); el.type = 'text'; el.placeholder = 'prázdné = bez oken';
+        el.className = 'seq';
+        const bar = document.createElement('div'); bar.className = 'seqbar';
+        const set = v => { el.value = v; onChange(f, v); };
+        for (const [lab, tok, tip] of [['+ okno', 'O', 'okno'], ['+ dveře', 'D', 'dveře'], ['+ oblouk', 'B', 'podstávkový oblouk s oknem'], ['+ oblouk prázdný', 'A', 'oblouk bez okna'], ['+ mezera', '-', 'mezera']]) {
+          const b = document.createElement('button'); b.type = 'button'; b.textContent = lab; b.title = tip;
+          b.onclick = (e) => { e.preventDefault(); set((el.value.trim() + ' ' + tok).trim()); };
+          bar.appendChild(b);
+        }
+        const del = document.createElement('button'); del.type = 'button'; del.textContent = '⌫'; del.title = 'smazat poslední';
+        del.onclick = (e) => { e.preventDefault(); const parts = el.value.trim().split(/\s+/); parts.pop(); set(parts.join(' ')); };
+        const clr = document.createElement('button'); clr.type = 'button'; clr.textContent = '✕'; clr.title = 'vymazat';
+        clr.onclick = (e) => { e.preventDefault(); set(''); };
+        bar.append(del, clr);
+        w.append(f.l, el, bar);
+        el.addEventListener('input', () => onChange(f, el.value));
       } else if (f.t === 'txt') {
         el = document.createElement('input'); el.type = 'text'; el.placeholder = f.ph || '';
         w.append(f.l, el);
@@ -138,7 +150,7 @@ function buildForm() {
         el = document.createElement('input'); el.type = 'number'; el.min = f.min; el.max = f.max; el.step = f.step;
         w.append(f.l, el);
       }
-      if (f.t !== 'range') el.addEventListener(f.t === 'txt' ? 'change' : 'input', () => onChange(f, f.t === 'chk' ? el.checked : el.value));
+      if (f.t !== 'range' && f.t !== 'seq') el.addEventListener(f.t === 'txt' ? 'change' : 'input', () => onChange(f, f.t === 'chk' ? el.checked : el.value));
       inputs[f.k] = { el, f, wrap: w };
       box.appendChild(w);
     }
@@ -183,7 +195,9 @@ document.getElementById('fileLoad').onchange = async (e) => {
   const file = e.target.files[0]; if (!file) return;
   try {
     const j = JSON.parse(await file.text());
-    P = { ...DEFAULTS, ...(j.params || j) }; syncForm(); schedule(0);
+    const prm = j.params || j;
+    for (const k of ['predniSkladba', 'zadniSkladba', 'levySkladba', 'pravySkladba']) if (!(k in prm)) prm[k] = '';
+    P = { ...DEFAULTS, ...prm }; syncForm(); schedule(0);
   } catch (err) { alert('Soubor se nepodařilo načíst: ' + err.message); }
   e.target.value = '';
 };
@@ -233,7 +247,7 @@ function setView(kind) {
   const L = lastRes ? lastRes.info.layout : { zc: 75, R: 60 };
   const tgt = new THREE.Vector3(0, 0, L.zc - L.R * 0.1);
   let d = L.R * 5.2;
-  const dirs = { front: [0, -1, 0.22], iso: [-0.42, -1, 0.5], top: [0, -0.25, 1], zoom: [-0.5, -1, 0.45], zoom2: [0.6, -1, 0.35] };
+  const dirs = { front: [0, -1, 0.22], iso: [-0.42, -1, 0.5], top: [0, -0.25, 1], side: [1, 0, 0.12], zoom: [-0.5, -1, 0.45], zoom2: [0.6, -1, 0.35] };
   if (kind.startsWith('zoom')) { d = L.R * 1.9; tgt.set(0, 0, L.zf + 12); }
   const v = new THREE.Vector3(...dirs[kind]).normalize().multiplyScalar(d);
   camera.position.copy(tgt).add(v); controls.target.copy(tgt); controls.update();

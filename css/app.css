@@ -57,3 +57,8 @@ details.grp[open] > summary::after { transform: rotate(90deg); }
   #panel { grid-row: 2; height: auto; }
   #photoBox { width: 140px; }
 }
+
+.hint.full { grid-column: 1 / -1; margin: 0; line-height: 1.45; }
+input.seq { font-weight: 600; letter-spacing: 1px; }
+.seqbar { display: flex; flex-wrap: wrap; gap: 4px; }
+.seqbar button { font-size: 12px; padding: 3px 7px; }
